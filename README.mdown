@@ -1,0 +1,63 @@
+# mailbomb.py #
+
+`mailbomb.py` is a simple script to send a lot of emails. Given a CSV of
+name and email pairs, `mailbomb.py` will send an email to every address,
+personalized with the corresponding name.
+
+This is a convenience script. Using it to spam or harass is strongly
+discouraged, and I decline any responsibility for its misuse.
+
+## Install ##
+
+Clone this repository with `$ git clone
+https://github.com/jacquerie/mailbomb.py.git`.
+
+## Usage ##
+
+Suppose that `file.csv` contains the list of name and email pairs you want to
+use, in the format exemplified by the included `example.csv`. Then, running
+```shell
+$ python mailbomb.py file.csv
+```
+will print the list of emails that would be sent by `mailbomb.py`.
+
+In order to actually send the emails, you have to create and configure a mail
+server. `mailbomb.py` includes a sample configuration for Gmail, which you can
+enable substituting the following lines
+```python
+credentials = DebugCredentials()
+server = DebugServer(credentials)
+```
+with
+```python
+credentials = GoogleCredentials()
+server = GoogleServer(credentials)
+```
+
+You can customize the email you want to send by modifying the `BODY` global
+variable. There's no support for multipart emails or more flexible templating
+engines, but it's planned.
+
+## Gmail ##
+
+The provided class `GoogleCredentials` will read the username and the password
+from the environment as the variables `GMAIL_USERNAME` and `GMAIL_PASSWORD`,
+respectively. There's currently no support for helping the user define these
+variables, but it's planned.
+
+## Contributing ##
+
+Patches are welcome. Please make sure that the code you submit complies to both
+PEP8 and PEP257 using the `pep8` and `pep257` tools. I am especially interested
+in seeing:
+* Proper command line argument parsing
+* Support for a template engine for emails
+* Convenience scripts to help the user set up the environment
+
+## Author ##
+
+Jacopo Notarstefano ([@Jaconotar](https://twitter.com/Jaconotar))
+
+## License ##
+
+MIT
