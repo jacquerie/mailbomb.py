@@ -6,6 +6,7 @@
 import csv
 import os
 import smtplib
+import string
 import sys
 
 
@@ -108,16 +109,11 @@ class GoogleServer(object):
         self.server.close()
 
 
-def capitalize(name):
-    """Convenience method for properly capitalizing names."""
-    return " ".join(map(lambda el: el.capitalize(), name.split()))
-
-
 def compose(credentials, data):
     """Compose email from template."""
     subject = SUBJECT
     author = AUTHOR
-    body = BODY % (capitalize(data['name']), author)
+    body = BODY % (string.capwords(data['name']), author)
 
     return TEMPLATE % (credentials.email, data['email'], subject, body)
 
